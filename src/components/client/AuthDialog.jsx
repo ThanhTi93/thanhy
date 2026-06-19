@@ -107,7 +107,7 @@ export default function AuthDialog({
       newErrors.email = "Vui lòng nhập email";
     } else if (!emailRegex.test(form.email.trim())) {
       newErrors.email = "Email không đúng định dạng";
-    } else if (users.some((user) => user.email === form.email && (isLogin ? user.password === form.password : true))) {
+    } else if (users.some((user) => user.email === form.email && (isLogin ? user.password !== form.password : true))) {
       newErrors.email = isLogin ? "Email hoặc mật khẩu không đúng" : "Email đã tồn tại";
     }
 
@@ -132,16 +132,15 @@ export default function AuthDialog({
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+    console.log("Form data:", errors);
     if (!validateForm()) return;
 
     if (isLogin) {
-      const loginData = {
-        email: form.email.trim(),
-        password: form.password,
-        remember: form.remember,
-      };
-
+      
+     const loginData = users.find(
+        (user) =>
+          user.email === form.email && user.password === form.password
+      );
       if (onLogin) {
         await onLogin(loginData);
       } else {
@@ -156,6 +155,7 @@ export default function AuthDialog({
       phone: form.phone.trim(),
       email: form.email.trim(),
       password: form.password,
+      role: form.role, 
     };
 
     if (onRegister) {

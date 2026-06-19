@@ -49,7 +49,6 @@ export default function Header() {
   };
 
   const onLogin = async (data) => {
-   
     // Lưu thông tin user vào LoginContext và localStorage
     login(data);
     setOpenAuth(false);
