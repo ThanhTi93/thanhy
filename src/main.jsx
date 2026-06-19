@@ -8,6 +8,8 @@ import { ProvincesProvider } from './contexts/ProvincesProvider.jsx'
 import { WardsProvider } from './contexts/WardsProvider.jsx'
 import { FeaturesProvider } from './contexts/FeaturesProvider.jsx'
 import { ProductsProvider } from './contexts/ProductsProvider.jsx'
+import { UserProvider } from './contexts/UserProvider.jsx'
+import { LoginProvider } from './contexts/LoginContext.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -17,7 +19,11 @@ createRoot(document.getElementById('root')).render(
           <WardsProvider>
             <FeaturesProvider>
               <ProductsProvider>
-              <App />
+                <UserProvider>
+                  <LoginProvider>
+                  <App />
+                  </LoginProvider>
+                </UserProvider>
               </ProductsProvider>
             </FeaturesProvider>
           </WardsProvider>
